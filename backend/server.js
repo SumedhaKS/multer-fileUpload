@@ -12,18 +12,18 @@ app.use(express.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
-        cb(null, './uploads')
+        cb(null, './uploads')                                           // path where you want to store image
     },
     filename: (req, file, cb)=>{
-        const filename = "xyz" + path.extname(file.originalname); 
+        const filename = "xyz" + path.extname(file.originalname);       // fn should be unique to avoid overwriting 
         cb(null, filename)
     }
 })
-const upload = multer({storage: storage});
+const upload = multer({storage: storage});                              // multer obj with configs
 
 
 
-app.post('/uploads', upload.single("image") , (req, res)=>{
+app.post('/uploads', upload.single("image") , (req, res)=>{             // 1. upload.single()  2. upload.array()  
     console.log("hitting server");
     console.log(req.file);
     res.json({
